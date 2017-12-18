@@ -196,6 +196,7 @@ PostItem.propTypes = {
 	compact: PropTypes.bool,
 	isCurrentSharePanelOpen: PropTypes.bool,
 	hideSharePanel: PropTypes.func,
+	hasExpandedContent: PropTypes.bool,
 };
 
 export default connect(
@@ -211,6 +212,9 @@ export default connect(
 		const externalPostLink = false === canCurrentUserEditPost( state, globalId );
 		const postUrl = externalPostLink ? post.URL : getEditorPath( state, siteId, post.ID );
 
+		const isCurrentSharePanelOpen = isSharePanelOpen( state, globalId );
+		const hasExpandedContent = isCurrentSharePanelOpen || false;
+
 		return {
 			post,
 			externalPostLink,
@@ -218,7 +222,8 @@ export default connect(
 			isAllSitesModeSelected: getSelectedSiteId( state ) === null,
 			allSitesSingleUser: areAllSitesSingleUser( state ),
 			singleUserSite: isSingleUserSite( state, siteId ),
-			isCurrentSharePanelOpen: isSharePanelOpen( state, globalId ),
+			isCurrentSharePanelOpen,
+			hasExpandedContent,
 			isCurrentPostSelected: isPostSelected( state, globalId ),
 			multiSelectEnabled: isMultiSelectEnabled( state ),
 		};
