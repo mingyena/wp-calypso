@@ -33,7 +33,6 @@ import SectionNavTabItem from 'components/section-nav/item';
 import Search from 'components/search';
 import { requestLanguageNames } from 'state/i18n/language-names/actions';
 import { getLocalizedLanguageNames } from 'state/selectors';
-import config from 'config';
 
 export class LanguagePickerModal extends PureComponent {
 	static propTypes = {
@@ -66,7 +65,7 @@ export class LanguagePickerModal extends PureComponent {
 
 	componentWillMount() {
 		const { localizedLanguageNames, loadLanguageNames } = this.props;
-		if ( config.isEnabled( 'i18n/language-names' ) && isEmpty( localizedLanguageNames ) ) {
+		if ( isEmpty( localizedLanguageNames ) ) {
 			loadLanguageNames();
 		}
 	}
