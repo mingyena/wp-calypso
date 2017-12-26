@@ -13,12 +13,21 @@ const HardSourceWebpackPlugin = require( 'hard-source-webpack-plugin' );
 const path = require( 'path' );
 const webpack = require( 'webpack' );
 const _ = require( 'lodash' );
+const childProcess = require( 'child_process' );
 
 /**
  * Internal dependencies
  */
 const cacheIdentifier = require( './server/bundler/babel/babel-loader-cache-identifier' );
 const config = require( 'config' );
+
+/**
+ * Internal variables
+ */
+const gitCommitSha = childProcess
+	.execSync( 'git rev-parse HEAD' )
+	.toString()
+	.trim();
 
 /**
  * This lists modules that must use commonJS `require()`s
@@ -133,6 +142,7 @@ const webpackConfig = {
 		} ),
 		new webpack.DefinePlugin( {
 			PROJECT_NAME: JSON.stringify( config( 'project' ) ),
+			COMMIT_SHA: JSON.stringify( gitCommitSha ),
 		} ),
 		new HappyPack( { loaders: [ babelLoader ] } ),
 		new webpack.NormalModuleReplacementPlugin( /^lib[\/\\]abtest$/, 'lodash/noop' ), // Depends on BOM
