@@ -5,7 +5,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { noop, debounce } from 'lodash';
-import Gridicon from 'gridicons';
 import { localize } from 'i18n-calypso';
 
 /**
@@ -46,18 +45,10 @@ class PostPhoto extends React.Component {
 	};
 
 	render() {
-		const { post, title, isExpanded, onClick, children, translate } = this.props;
-		const zoomIcon = isExpanded ? 'zoom-out' : 'zoom-in';
+		const { post, title, isExpanded, onClick, children } = this.props;
 
 		return (
 			<div className="reader-post-card__post">
-				<div className="reader-post-card__photo-expand-controls">
-					<Gridicon
-						icon={ zoomIcon }
-						onClick={ this.toggleCard }
-						title={ isExpanded ? translate( 'Expand photo' ) : translate( 'Shrink photo' ) }
-					/>
-				</div>
 				{ !! post.canonical_media.src && (
 					<PostPhotoImage
 						post={ post }
