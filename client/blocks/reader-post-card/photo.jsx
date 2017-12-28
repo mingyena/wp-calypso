@@ -13,6 +13,19 @@ import { localize } from 'i18n-calypso';
 import PostPhotoImage from './photo-image';
 
 class PostPhoto extends React.Component {
+	static propTypes = {
+		post: PropTypes.object,
+		site: PropTypes.object,
+		title: PropTypes.string,
+		onClick: PropTypes.func,
+		expandCard: PropTypes.func,
+		shrinkCard: PropTypes.func,
+	};
+
+	static defaultProps = {
+		onClick: noop,
+	};
+
 	state = {
 		cardWidth: 800,
 	};
@@ -63,18 +76,5 @@ class PostPhoto extends React.Component {
 		);
 	}
 }
-
-PostPhoto.propTypes = {
-	post: PropTypes.object,
-	site: PropTypes.object,
-	title: PropTypes.string,
-	onClick: PropTypes.func,
-	expandCard: PropTypes.func,
-	shrinkCard: PropTypes.func,
-};
-
-PostPhoto.defaultProps = {
-	onClick: noop,
-};
 
 export default localize( PostPhoto );
