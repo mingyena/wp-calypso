@@ -15,6 +15,19 @@ import Emojify from 'components/emojify';
 import cssSafeUrl from 'lib/css-safe-url';
 
 class PostPhotoImage extends React.Component {
+	static propTypes = {
+		post: PropTypes.object,
+		title: PropTypes.string,
+		onClick: PropTypes.func,
+		isExpanded: PropTypes.bool,
+		cardWidth: PropTypes.number,
+	};
+
+	static defaultProps = {
+		goToPost: noop,
+		toggleExpansion: noop,
+	};
+
 	getViewportHeight = () =>
 		Math.max( document.documentElement.clientHeight, window.innerHeight || 0 );
 
@@ -28,7 +41,7 @@ class PostPhotoImage extends React.Component {
 	getMaxPhotoHeight = () => this.getViewportHeight() - 176;
 
 	render() {
-		const { post, title, onClick } = this.props;
+		const { post, title, goToPost, toggleExpansion } = this.props;
 		const imageUrl = post.canonical_media.src;
 		const imageSize = {
 			height: post.canonical_media.height,
@@ -67,12 +80,17 @@ class PostPhotoImage extends React.Component {
 
 		return (
 			<div style={ divStyle }>
-				<a className={ classes } href={ post.URL } style={ featuredImageStyle } onClick={ onClick }>
+				<a
+					className={ classes }
+					href={ post.URL }
+					style={ featuredImageStyle }
+					onClick={ toggleExpansion }
+				>
 					<div ref={ this.handleWidthDivLoaded } style={ { width: '100%' } } />
 				</a>
 				<AutoDirection>
 					<h1 className="reader-post-card__title">
-						<a className="reader-post-card__title-link" href={ post.URL } onClick={ onClick }>
+						<a className="reader-post-card__title-link" href={ post.URL } onClick={ goToPost }>
 							<Emojify>{ linkTitle }</Emojify>
 						</a>
 					</h1>
@@ -81,17 +99,5 @@ class PostPhotoImage extends React.Component {
 		);
 	}
 }
-
-PostPhotoImage.propTypes = {
-	post: PropTypes.object,
-	title: PropTypes.string,
-	onClick: PropTypes.func,
-	isExpanded: PropTypes.bool,
-	cardWidth: PropTypes.number,
-};
-
-PostPhotoImage.defaultProps = {
-	onClick: noop,
-};
 
 export default PostPhotoImage;
