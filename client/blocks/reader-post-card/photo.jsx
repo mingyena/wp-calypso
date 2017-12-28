@@ -65,7 +65,7 @@ class PostPhoto extends React.Component {
 		const { post, title, isExpanded, onClick, children } = this.props;
 
 		return (
-			<div className="reader-post-card__post">
+			<div className="reader-post-card__post" ref={ this.handleWidthDivLoaded }>
 				{ !! post.canonical_media.src && (
 					<PostPhotoImage
 						post={ post }
