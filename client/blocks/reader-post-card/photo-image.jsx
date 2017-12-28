@@ -79,13 +79,15 @@ class PostPhotoImage extends React.Component {
 			: {};
 
 		return (
-			<div style={ divStyle }>
-				<a
-					className={ classes }
-					href={ post.URL }
-					style={ featuredImageStyle }
-					onClick={ toggleExpansion }
-				/>
+			<div>
+				<div style={ divStyle }>
+					<a
+						className={ classes }
+						href={ post.URL }
+						style={ featuredImageStyle }
+						onClick={ toggleExpansion }
+					/>
+				</div>
 				<AutoDirection>
 					<h1 className="reader-post-card__title">
 						<a className="reader-post-card__title-link" href={ post.URL } onClick={ goToPost }>
