@@ -52,9 +52,13 @@ class PostPhoto extends React.Component {
 		window.removeEventListener( 'resize', this.resizeListener );
 	}
 
-	toggleExpansion = () => {
+	toggleExpansion = clickEvent => {
 		const { post, site, postKey, expandCard, shrinkCard, isExpanded } = this.props;
 		isExpanded ? shrinkCard( { post, postKey } ) : expandCard( { post, site, postKey } );
+
+		if ( clickEvent ) {
+			clickEvent.preventDefault();
+		}
 	};
 
 	render() {
